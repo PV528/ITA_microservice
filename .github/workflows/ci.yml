@@ -16,5 +16,4 @@ jobs:
           java-version: '17'
 
       - run: mvn -B package --file pom.xml
-
       - run: mvn -B test -Dspring.data.mongodb.uri=mongodb://rootadmin:secret@mongo:27017/cardb?authSource=admin
