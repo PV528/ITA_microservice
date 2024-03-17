@@ -39,8 +39,8 @@ class Microservice1ApplicationTests {
 
 	@Test
 	public void testGetAllCars() {
-		Car car1 = new Car("ABC123", "Toyota", "Corolla", "Red", 2010, 100000);// Priprava testnih podatkov
-		Car car2 = new Car("XYZ789", "Honda", "Civic", "Blue", 2015, 80000);
+		Car car1 = new Car("ABC123", "Toyota", "Corolla", "Red", 2010, 100000, 50);// Priprava testnih podatkov
+		Car car2 = new Car("XYZ789", "Honda", "Civic", "Blue", 2015, 80000, 50);
 		List<Car> expectedCars = Arrays.asList(car1, car2);
 		when(carService.getAllCars()).thenReturn(expectedCars);// Definiranje vedenja "mock" objekta
 		List<Car> actualCars = microserviceController.getAllCars();	// Klic metode, ki jo testiramo
@@ -50,7 +50,7 @@ class Microservice1ApplicationTests {
 	@Test
 	void testGetCarByRegisterNumber() {
 		String registerNumber = "ABC123";
-		Car expectedCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000);
+		Car expectedCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000, 50);
 		when(carService.getCarByRegisterNumber(registerNumber)).thenReturn(Optional.of(expectedCar));
 		ResponseEntity<Car> response = microserviceController.getCarByRegisterNumber(registerNumber);
 		assertEquals(expectedCar, response.getBody());
@@ -60,8 +60,8 @@ class Microservice1ApplicationTests {
 	@Test
 	void testGetCarByBrand() {
 		String brand = "Toyota";
-		Car car1 = new Car("ABC123", brand, "Corolla", "Red", 2010, 100000);
-		Car car2 = new Car("XYZ789", brand, "Camry", "Blue", 2015, 80000);
+		Car car1 = new Car("ABC123", brand, "Corolla", "Red", 2010, 100000, 50);
+		Car car2 = new Car("XYZ789", brand, "Camry", "Blue", 2015, 80000, 50);
 		List<Car> expectedCars = Arrays.asList(car1, car2);
 		when(carService.getCarsByBrand(brand)).thenReturn(expectedCars);
 		ResponseEntity<List<Car>> response = microserviceController.getCarByBrand(brand);
@@ -72,7 +72,7 @@ class Microservice1ApplicationTests {
 	@Test
 	public void testGetCarsByColor() {
 		String color = "Red";
-		Car car1 = new Car("ABC123", "Toyota", "Corolla", color, 2010, 100000);
+		Car car1 = new Car("ABC123", "Toyota", "Corolla", color, 2010, 100000, 50);
 		List<Car> expectedCars = Arrays.asList(car1);
 		when(carService.getCarsByColor(color)).thenReturn(expectedCars);
 		ResponseEntity<List<Car>> responseEntity = microserviceController.getCarByColor(color);
@@ -81,7 +81,7 @@ class Microservice1ApplicationTests {
 
 	@Test
 	public void	testaddCar(){
-		Car carToAdd = new Car("ABC123", "Toyota", "Corolla", "Red", 2010, 100000);
+		Car carToAdd = new Car("ABC123", "Toyota", "Corolla", "Red", 2010, 100000, 50);
 		when(carService.saveCar(any(Car.class))).thenReturn(carToAdd);
 		ResponseEntity<Car> responseEntity = microserviceController.addCar(carToAdd);
 		assertEquals(carToAdd, responseEntity.getBody());
@@ -90,8 +90,8 @@ class Microservice1ApplicationTests {
 	@Test
 	void testUpdateCar() {
 		String registerNumber = "ABC123";
-		Car existingCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000);
-		Car updatedCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 120000);
+		Car existingCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000, 50);
+		Car updatedCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 120000, 50);
 		when(carService.getCarByRegisterNumber(registerNumber)).thenReturn(Optional.of(existingCar));
 		when(carService.saveCar(existingCar)).thenReturn(existingCar);
 		ResponseEntity<?> response = microserviceController.updateCar(registerNumber, updatedCar);
@@ -101,7 +101,7 @@ class Microservice1ApplicationTests {
 	@Test
 	void testDeleteCar() {
 		String registerNumber = "ABC123";
-		Car existingCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000);
+		Car existingCar = new Car(registerNumber, "Toyota", "Corolla", "Red", 2010, 100000, 50);
 		when(carService.getCarByRegisterNumber(registerNumber)).thenReturn(Optional.of(existingCar));
 		ResponseEntity<?> response = microserviceController.deleteCar(registerNumber);
 		assertEquals(200, response.getStatusCodeValue());
