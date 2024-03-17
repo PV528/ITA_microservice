@@ -1,1 +1,2 @@
-# ITA_microservice
+# Sistem za upravljanje avtomobilov
+Opis
