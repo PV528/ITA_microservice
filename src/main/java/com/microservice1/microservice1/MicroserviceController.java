@@ -20,13 +20,13 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/cars")
 public class MicroserviceController {
     private static final Logger logger = LoggerFactory.getLogger(MicroserviceController.class);
     @Autowired
     private CarService carService;
 
-    @GetMapping("/cars")
+    @GetMapping("/all")
     public List<Car> getAllCars() {//pridobim vse avte
         logger.info("Zahteva za pridobitev vseh avtomobilov prejeta");
         List<Car> cars = carService.getAllCars();
@@ -34,7 +34,7 @@ public class MicroserviceController {
         return cars;
     }
 
-    @GetMapping("/car/{registerNumber}")//dobim avto glede na registrsko številko
+    @GetMapping("/{registerNumber}")//dobim avto glede na registrsko številko
     public ResponseEntity<Car> getCarByRegisterNumber(@PathVariable String registerNumber) {
         logger.info("Iscem avto z registrsko stevilko: {}", registerNumber);
         Optional<Car> carOptional = carService.getCarByRegisterNumber(registerNumber);
@@ -47,7 +47,7 @@ public class MicroserviceController {
         }
     }
 
-    @GetMapping("/cars/brand/{brand}") //dobim avte glede na znamko
+    @GetMapping("/brand/{brand}") //dobim avte glede na znamko
     public ResponseEntity<List<Car>> getCarByBrand(@PathVariable String brand) {
         logger.info("Iscem avte z znamko: {}", brand);
         List<Car> cars = carService.getCarsByBrand(brand);
@@ -61,7 +61,7 @@ public class MicroserviceController {
         }
     }
 
-    @GetMapping("/cars/color/{color}")//dobim avte glede na barvo
+    @GetMapping("/color/{color}")//dobim avte glede na barvo
     public ResponseEntity<List<Car>> getCarByColor(@PathVariable String color) {
         logger.info("Iscem avte z barvo: {}", color);
         List<Car> cars = carService.getCarsByColor(color);
@@ -84,7 +84,7 @@ public class MicroserviceController {
     }
 
 
-    @PutMapping("/cars/{registerNumber}")
+    @PutMapping("/{registerNumber}")
     public ResponseEntity<?> updateCar(@PathVariable String registerNumber, @RequestBody Car updatedCar) {
         logger.info("Dobljena zahteva za posodobitev avta z registrsko stevilko: {}", registerNumber);
         Optional<Car> existingCarOptional = carService.getCarByRegisterNumber(registerNumber);
